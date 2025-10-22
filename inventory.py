@@ -3,7 +3,7 @@ from typing import Literal
 
 
 @dataclass
-class InventoryManager:
+class Inventory:
     """
     This class is made to manage an inventory composed
     of products (vegetables and fruits), we have a definite
@@ -13,8 +13,9 @@ class InventoryManager:
     stock: float
     price: float
     sale_type: Literal['unit', 'kg']
-    # ex utilisation : kiwi = InventoryManager('Kiwi', stock = 5.0, price = 3.5, sale_type = 'kg')
-                    #  potiron = InventoryManager('Potiron', stock = 6.0, price = 2.5, sale_type = 'unit')
+    category: Literal['fruit', 'vegetable']
+    # ex utilisation : kiwi = Inventory('Kiwi', stock = 5.0, price = 3.5, sale_type = 'kg', category = 'fruit')
+                    #  potiron = Inventory('Potiron', stock = 6.0, price = 2.5, sale_type = 'unit', category = 'vegetable')
 
     def total_value(self) -> float:
         """
