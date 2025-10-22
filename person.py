@@ -3,15 +3,15 @@ from dataclasses import dataclass, field
 
 from inventory_manager import InventoryManager
 from shopping_cart import ShoppingCart
-from typing import List, ClassVar
+from typing import List, ClassVar, Optional
 
 
 @dataclass
 class Person:
     first_name : str
     last_name : str
-    shopping_car : ShoppingCart
-    history_list : List[InventoryManager]
+    shopping_cart : Optional['ShoppingCart'] = None
+    history_list : List[InventoryManager] = field(default_factory=list)
 
     #static
     clients: ClassVar[List['Person']] = []
@@ -28,7 +28,7 @@ class Person:
             return 'no available history number'
 
     @staticmethod
-    def is_created(first_name, last_name):
+    def exists(first_name, last_name):
         for client in Person.clients:
             if client.first_name == first_name and client.last_name == last_name:
                 return True
