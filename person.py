@@ -27,8 +27,8 @@ class Person:
         else:
             return 'no available history number'
 
-
-    def is_created(self,first_name, last_name):
+    @staticmethod
+    def is_created(first_name, last_name):
         for client in Person.clients:
             if client.first_name == first_name and client.last_name == last_name:
                 return True
