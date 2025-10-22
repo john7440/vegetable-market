@@ -10,7 +10,7 @@ class InventoryManager:
         """Display the inventory product by product and
         the total value of the inventory"""
         print('=' * 60)
-        print(f"{'Product':<20} | {'Price':<20} | {'Quantity':<20}")
+        print(f"{'Product':<20} | {'Quantity':<20} | {'Price':<20} ")
         print('-' * 60)
         for item in self.items:
             print(item.display())
