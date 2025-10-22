@@ -10,9 +10,11 @@ class InventoryManager:
     stock and a price per unit or per kg.
     """
     product: str
-    stock: int
+    stock: float
     price: float
     sale_type: Literal['unit', 'kg']
+    # ex utilisation : kiwi = InventoryManager('Kiwi', stock = 5.0, price = 3.5, sale_type = 'kg')
+                    #  potiron = InventoryManager('Potiron', stock = 6.0, price = 2.5, sale_type = 'unit')
 
     def total_value(self) -> float:
         """
