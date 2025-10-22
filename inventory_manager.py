@@ -4,4 +4,4 @@ from typing import List
 
 @dataclass
 class InventoryManager:
-    items : list[Inventory] = field(default_factory=list)
+    items : List[Inventory] = field(default_factory=list)
