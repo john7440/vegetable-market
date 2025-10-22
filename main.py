@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-*
-import sys
 
 from inventory import Inventory
 from inventory_manager import InventoryManager
 
 
-def main_menu():
+def main_menu(sys: InventoryManager) -> None:
     """
     This is the main menu of the application.
     """
@@ -27,7 +26,7 @@ def main_menu():
         if option == 2:
             pass
         if option == 3:
-            InventoryManager.display_inventory()
+            sys.display_inventory()
         if option == 4:
             pass
         if option == 5:
@@ -64,7 +63,7 @@ def main():
     sys.add_item(Inventory(product='Radis noir', stock= 10.0, price= 5.0, sale_type='unit', category='vegetable'))
     sys.add_item(Inventory(product='Salsifis', stock= 3.0, price= 2.5, sale_type='kg', category='vegetable'))
 
-    main_menu()
+    main_menu(sys)
 
 if __name__ == '__main__':
     main()
