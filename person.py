@@ -1,8 +1,9 @@
+from __future__ import annotations
 from dataclasses import dataclass, field
 
 
 from inventory_manager import InventoryManager
-from shopping_cart import ShoppingCart
+#from shopping_cart import ShoppingCart
 from typing import List, ClassVar, Optional
 
 
