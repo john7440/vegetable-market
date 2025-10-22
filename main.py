@@ -1,8 +1,38 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-*
+import sys
 
 from inventory import Inventory
 from inventory_manager import InventoryManager
+
+
+def main_menu():
+    """
+    This is the main menu of the application.
+    """
+    while True:
+        print('-' * 60)
+        print('Welcome to Bon Marché!')
+        print('-' * 60)
+        print('Choose an option:')
+        print('1 - Add new Customer')
+        print('2 - Shopping')
+        print('3 - Display Inventory')
+        print('4 - Daily Sales')
+        print('5 - Exit')
+        print('-' * 60)
+        option = int(input('Enter your choice: '))
+        if option == 1:
+            pass
+        if option == 2:
+            pass
+        if option == 3:
+            InventoryManager.display_inventory()
+        if option == 4:
+            pass
+        if option == 5:
+            break
+
 
 
 def main():
@@ -34,8 +64,7 @@ def main():
     sys.add_item(Inventory(product='Radis noir', stock= 10.0, price= 5.0, sale_type='unit', category='vegetable'))
     sys.add_item(Inventory(product='Salsifis', stock= 3.0, price= 2.5, sale_type='kg', category='vegetable'))
 
-    #Test display inventory
-    sys.display_inventory()
+    main_menu()
 
 if __name__ == '__main__':
     main()
