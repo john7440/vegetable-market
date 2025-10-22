@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 
 from inventory_manager import InventoryManager
 from shopping_cart import ShoppingCart
-from typing import List
+from typing import List, ClassVar
 
 
 @dataclass
@@ -13,6 +13,8 @@ class Person:
     shopping_car : ShoppingCart
     history_list : List[InventoryManager]
 
+    #static
+    clients: ClassVar[List['Person']] = []
     def get_histories(self):
         histories_list = ''
         for i in range(len(self.history_list)):
