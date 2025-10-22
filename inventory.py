@@ -34,6 +34,16 @@ class Inventory:
         return quantity * self.price
 
 
+    def display(self) -> str:
+        """
+        This function display the product with the unit modified
+        according to the sale type.
+        :return: a formatted string.
+        """
+        unit = "unit" if self.sale_type == 'unit' else "kg"
+        return f'{self.product:<20} | {self.stock:.2f} {unit} | {self.price:.2f} {unit}/ €'
+
+
     def total_value(self) -> float:
         """
         This function calculates the total value of the inventory.
