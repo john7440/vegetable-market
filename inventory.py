@@ -5,8 +5,8 @@ from typing import Literal
 @dataclass
 class Inventory:
     """
-    This class is made to manage an inventory composed
-    of products (vegetables and fruits), we have a definite
+    This class is made to manage products
+    (vegetables and fruits), we have a definite
     stock and a price per unit or per kg.
     """
     product: str
