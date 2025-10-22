@@ -17,6 +17,23 @@ class Inventory:
     # ex utilisation : kiwi = Inventory('Kiwi', stock = 5.0, price = 3.5, sale_type = 'kg', category = 'fruit')
                     #  potiron = Inventory('Potiron', stock = 6.0, price = 2.5, sale_type = 'unit', category = 'vegetable')
 
+
+    def sell(self, quantity: float) -> float:
+        """
+        This function check if the quantity is available
+        for the sell to succeed. If not or if the quantity is incorrect
+        then it raise an error.
+        :param quantity: the quantity to sell.
+        :return: quantity * price (if available)
+        """
+        if quantity <= 0:
+            raise ValueError('Quantity must be positive')
+        if quantity > self.stock:
+            raise ValueError('Quantity cannot be greater than stock')
+        self.stock -= quantity
+        return quantity * self.price
+
+
     def total_value(self) -> float:
         """
         This function calculates the total value of the inventory.
