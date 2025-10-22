@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from typing import Literal
+
 
 @dataclass
 class InventoryManager:
@@ -9,11 +11,12 @@ class InventoryManager:
     """
     product: str
     stock: int
-    unit_price: float
+    price: float
+    sale_type: Literal['unit', 'kg']
 
     def total_value(self) -> float:
         """
         This function calculates the total value of the inventory.
         :return: the value of the inventory.
         """
-        return self.unit_price * self.stock
+        return self.price * self.stock
