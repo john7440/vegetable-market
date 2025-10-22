@@ -8,8 +8,8 @@ from typing import List, ClassVar
 
 @dataclass
 class Person:
-    name : str
-    surname : str
+    first_name : str
+    last_name : str
     shopping_car : ShoppingCart
     history_list : List[InventoryManager]
 
@@ -26,3 +26,11 @@ class Person:
             return self.history_list[number].display_inventory()
         else:
             return 'no available history number'
+
+    @staticmethod
+    def exists(first_name, last_name):
+        for client in Person.clients:
+            if client.first_name == first_name and client.last_name == last_name:
+                return True
+        #not created i came there
+        return False

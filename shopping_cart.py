@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from inventory import Inventory
 from inventory_manager import InventoryManager
 from person import Person
-from history import History
 
 
 @dataclass
