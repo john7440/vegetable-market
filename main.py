@@ -11,7 +11,7 @@ def main_menu(sys: InventoryManager) -> None:
     """
     while True:
         print('-' * 60)
-        print('Welcome to Bon Marché!')
+        print("Welcome to 'Au Bon Marché'!")
         print('-' * 60)
         print('Choose an option:')
         print('1 - Add new Customer')
@@ -30,6 +30,7 @@ def main_menu(sys: InventoryManager) -> None:
         if option == 4:
             pass
         if option == 5:
+            print('Thank you for shopping! See you soon!')
             break
 
 
@@ -37,7 +38,7 @@ def main():
     """
     This is the main function.
     """
-    # Initiation of the system
+    # Initiation of the manager
     manager = InventoryManager()
 
     #Add to inventory
@@ -62,6 +63,7 @@ def main():
     manager.add_item(Inventory(product='Radis noir', stock= 10.0, price= 5.0, sale_type='unit', category='vegetable'))
     manager.add_item(Inventory(product='Salsifis', stock= 3.0, price= 2.5, sale_type='kg', category='vegetable'))
 
+    # Main menu loop
     main_menu(manager)
 
 
