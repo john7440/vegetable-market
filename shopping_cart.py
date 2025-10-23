@@ -11,9 +11,9 @@ class ShoppingCart:
 
     def add_article(self, article : Inventory, quantity : int):
         try:
-            sold_article_price = article.sell(quantity)
+            article.sell(quantity)
             #create the article inside
-            self.articles_list.add_item(Inventory(article.product, quantity, sold_article_price, article.sale_type, article.category))
+            self.articles_list.add_item(Inventory(article.product, quantity, article.price, article.sale_type, article.category))
         except ValueError as error:
             print(f'{error}')
 
@@ -29,7 +29,6 @@ class ShoppingCart:
     def pay(self):
         from history import History
         self.owner.history_list.append(History(self.owner))
-        self.articles_list.items.clear()
 
     def display(self) -> None:
         """Display the inventory product by product and

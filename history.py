@@ -1,4 +1,6 @@
 from __future__ import annotations
+
+from copy import deepcopy
 from typing import List
 from dataclasses import dataclass, field
 import datetime
@@ -13,13 +15,13 @@ class History:
     date : datetime.date = field(default_factory=datetime.date.today)
 
     def __post_init__(self):
-        self.articles_list = self.owner.shopping_cart.articles_list
+        self.articles_list = deepcopy(self.owner.shopping_cart.articles_list)
 
 
     @staticmethod
     def get_by_date(date : datetime.date):
         from client import Client
-        list_of_article_by_date : List['InventoryManager'] = list()
+        list_of_article_by_date : List['History'] = list()
         users = Client.clients
 
         for u in users:
