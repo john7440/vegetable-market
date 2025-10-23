@@ -25,3 +25,9 @@ class InventoryManager:
     def add_item(self, item: Inventory) -> None:
         """Add an item to the inventory"""
         self.items.append(item)
+
+    def get_item(self, item_name):
+        for item in self.items:
+            if item.product == item_name:
+                return item
+        return None
