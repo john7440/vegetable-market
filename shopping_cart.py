@@ -1,16 +1,14 @@
+from __future__ import annotations
 import datetime
 from dataclasses import dataclass, field
 from typing import Optional
 
-from history import History
 from inventory import Inventory
 from inventory_manager import InventoryManager
-from client import Client
-
 
 @dataclass
 class ShoppingCart:
-    owner: Client
+    owner: 'Client'
     articles_list: 'InventoryManager' = field(default_factory=InventoryManager)
 
 
@@ -32,4 +30,5 @@ class ShoppingCart:
 
 
     def pay(self):
+        from history import History
         self.owner.history_list.append(History(self.articles_list, self.owner, datetime.datetime.now().date()))
