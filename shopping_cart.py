@@ -5,12 +5,12 @@ from typing import Optional
 from history import History
 from inventory import Inventory
 from inventory_manager import InventoryManager
-from person import Person
+from client import Client
 
 
 @dataclass
 class ShoppingCart:
-    owner: Person
+    owner: Client
     articles_list: 'InventoryManager' = field(default_factory=InventoryManager)
 
 

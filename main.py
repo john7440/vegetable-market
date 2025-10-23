@@ -3,7 +3,7 @@
 from history import History
 from inventory import Inventory
 from inventory_manager import InventoryManager
-from person import Person
+from client import Client
 import datetime
 
 def main_menu(sys: InventoryManager) -> None:
@@ -73,13 +73,13 @@ def get_or_create_client():
     first_name = get_valid_name("first")
     last_name = get_valid_name("last")
 
-    if not Person.exists(first_name, last_name):
-        Person.clients.append(Person(first_name, last_name))
+    if not Client.exists(first_name, last_name):
+        Client.clients.append(Client(first_name, last_name))
         print(f'[Register] {first_name} {last_name} has been created')
     else:
         print(f'[Login] Welcome back {first_name} {last_name}')
 
-    return Person.get_client(first_name, last_name)
+    return Client.get_client(first_name, last_name)
 
 
 

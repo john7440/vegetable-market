@@ -7,14 +7,14 @@ from typing import List, ClassVar, Optional
 
 
 @dataclass
-class Person:
+class Client:
     first_name : str
     last_name : str
     shopping_cart : Optional['ShoppingCart'] = None
     history_list : List['History'] = field(default_factory=list)
 
     #static
-    clients: ClassVar[List['Person']] = []
+    clients: ClassVar[List['Client']] = []
     def get_histories(self):
         histories_list = ''
         for i in range(len(self.history_list)):
@@ -29,7 +29,7 @@ class Person:
 
     @staticmethod
     def exists(first_name, last_name):
-        for client in Person.clients:
+        for client in Client.clients:
             if client.first_name == first_name and client.last_name == last_name:
                 return True
         #not created i came there
@@ -37,7 +37,7 @@ class Person:
 
     @staticmethod
     def get_client(first_name, last_name):
-        for client in Person.clients:
+        for client in Client.clients:
             if client.first_name == first_name and client.last_name == last_name:
                 return client
         # not created i came there
