@@ -15,7 +15,7 @@ def main_menu(sys: InventoryManager) -> None:
         print(' ' * 15 + "Welcome to 'Au Bon Marché'!")
         print('-' * 60)
         print('Choose an option:')
-        print('1 - Add new Customer')
+        print('1 - Start Session')
         print('2 - Shopping')
         print('3 - Display Inventory')
         print('4 - Daily Sales')
@@ -33,31 +33,13 @@ def main_menu(sys: InventoryManager) -> None:
                 print('Invalid choice, please try again.')
 
         if option == 1:
-            # insert the first name
-            while True:
-                first_name = input('[Costumer manager] Insert costumer first name: ').strip().lower()
-                first_name = ''.join(char for char in first_name if char.isalpha()).capitalize()
-                if first_name and len(first_name) >= 3:
-                    break
-                print('Please enter a valid first name. At least 3 characters long.')
-
-            while True:
-                # insert the last name
-                last_name = input('[Costumer manager] Insert costumer last name: ').strip().lower()
-                last_name = ''.join(char for char in last_name if char.isalpha()).capitalize()
-                if last_name and len(last_name) >= 3:
-                    break
-                print('Please enter a valid last name. At least 3 characters long.')
-
-            if not Person.exists(first_name, last_name):
-                Person.clients.append(Person(first_name, last_name))
-                print(f'[Costumer manager] {first_name} {last_name} added to the system.')
-            else:
-                print(f'[Costumer manager] {first_name} {last_name} already exist.')
+            client = get_or_create_client()
+            print(f'[Customer manager] {client.first_name} {client.last_name} is now active.')
 
         if option == 2:
-            client = login()
-            print(f'[Debug] {client}')
+            client = get_or_create_client()
+            print(f'[Shopping] {client.first_name} {client.last_name} is ready to shop.')
+
         if option == 3:
             sys.display_inventory()
 
@@ -71,36 +53,34 @@ def main_menu(sys: InventoryManager) -> None:
             break
 
 
-def login():
+def get_valid_name(label: str) -> str:
     """
-    Function to login or register the client into the system
-    :param first_name: string / First name of the flient
-    :param last_name: string / Last name of the client
-    :return: the client itself
+    Prompt the user for a valid name (first or last).
+    Removes non-alphabetic characters and ensures minimum length.
     """
-    # insert the first name
     while True:
-        first_name = input('[Costumer manager] Insert costumer first name: ').strip().lower()
-        first_name = ''.join(char for char in first_name if char.isalpha()).capitalize()
-        if first_name and len(first_name) >= 3:
-            break
-        print('Please enter a valid first name. At least 3 characters long.')
+        name = input(f'[Customer manager] Insert customer {label} name: ').strip().lower()
+        name = ''.join(char for char in name if char.isalpha()).capitalize()
+        if name and len(name) >= 3:
+            return name
+        print(f'Please enter a valid {label} name. At least 3 characters long.')
 
-    while True:
-        # insert the last name
-        last_name = input('[Costumer manager] Insert costumer last name: ').strip().lower()
-        last_name = ''.join(char for char in last_name if char.isalpha()).capitalize()
-        if last_name and len(last_name) >= 3:
-            break
-        print('Please enter a valid last name. At least 3 characters long.')
+
+def get_or_create_client():
+    """
+    Ask for first and last name, create the client if not found, or return existing one.
+    """
+    first_name = get_valid_name("first")
+    last_name = get_valid_name("last")
 
     if not Person.exists(first_name, last_name):
         Person.clients.append(Person(first_name, last_name))
         print(f'[Register] {first_name} {last_name} has been created')
+    else:
+        print(f'[Login] Welcome back {first_name} {last_name}')
 
-    client = Person.get_client(first_name, last_name)
-    print(f'[Login] Welcome {client.first_name} {client.last_name}')
-    return client
+    return Person.get_client(first_name, last_name)
+
 
 
 def main():
