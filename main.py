@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-*
-
+from history import History
 from inventory import Inventory
 from inventory_manager import InventoryManager
 from person import Person
+import datetime
 
 def main_menu(sys: InventoryManager) -> None:
     """
@@ -58,7 +59,9 @@ def main_menu(sys: InventoryManager) -> None:
         if option == 3:
             sys.display_inventory()
         if option == 4:
-            pass
+            history_today = History.get_by_date(datetime.datetime.now().date())
+            for ht in history_today:
+                print(ht.articles_list.display_inventory())
         if option == 5:
             print('Thank you for shopping! See you soon!')
             break
