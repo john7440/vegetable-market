@@ -4,6 +4,10 @@ from typing import List
 
 @dataclass
 class InventoryManager:
+    """
+    This class is made to manage the stock, we can easily add more items
+    and display them.
+    """
     items : List[Inventory] = field(default_factory=list)
 
     def display_inventory(self) -> None:
