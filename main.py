@@ -17,7 +17,7 @@ def main_menu(sys: InventoryManager) -> None:
         print('-' * 60)
         print('Choose an option:')
         print('1 - Start Session')
-        print('2 - git ')
+        print('2 - Shopping')
         print('3 - Display Inventory')
         print('4 - Daily Sales')
         print('5 - Exit')
@@ -35,42 +35,78 @@ def main_menu(sys: InventoryManager) -> None:
 
         if option == 1:
             client = get_or_create_client()
-            print(f'[Customer manager] {client.first_name} {client.last_name} is now active.')
+            print(f'{client.first_name} {client.last_name} is now active.')
 
         if option == 2:
-            #client = get_or_create_client()
-            #print(f'[Shopping] {client.first_name} {client.last_name} is ready to shop.')
-            if client:
-                #show list
-                sys.display_inventory()
+            shopping(client, sys)
 
-                #ask product and quantity
-                while True:
-                    print(client.shopping_cart.articles_list.items)
-                    article_name = input('[Customer manager] Insert the article name:')
-                    article = sys.get_item(article_name)
-                    if article:
-                        client.shopping_cart.articles_list.items.append(article)
-                        print(f'[Customer manager]{article.product} has been added to your shopping cart')
-                    else:
-                        print(f'[Customer manager]{article_name} don\'t exist')
-
-
-
-
-            else:
-                print('[Customer manager] Please log-in the client before shopping')
         if option == 3:
             sys.display_inventory()
 
         if option == 4:
             history_today = History.get_by_date(datetime.datetime.now().date())
-            for ht in history_today:
-                print(ht.articles_list.display_inventory())
+            for h in history_today:
+                print('-'*60)
+                print(h.owner.first_name,h.owner.last_name)
+                h.articles_list.display_inventory()
 
         if option == 5:
             print('Thank you for shopping! See you soon!')
             break
+
+
+def shopping(client: Client | None, sys: InventoryManager):
+    if client:
+        # show list
+        sys.display_inventory()
+
+        # ask product and quantity
+        while True:
+            # enter name of article
+            article_name = input('Insert the article name: ')
+            # get the item
+            article = sys.get_item(article_name)
+            # if item is got
+            if article:
+                # get desired quantity
+                quantity = input(f"Insert the desired quantity of {article.product} in {article.sale_type}: ")
+                # if the quantity is valid
+                if quantity.isdigit() and int(quantity) <= article.stock:
+                    # if the article is already present
+                    if any(item.product == article.product for item in client.shopping_cart.articles_list.items):
+                        quantity = int(quantity)
+
+                        # sell quantity
+                        article.sell(quantity)
+
+                        # increase in our list
+                        for sc_article in client.shopping_cart.articles_list.items:
+                            if sc_article.product == article.product:
+                                sc_article.stock += quantity
+                    else:
+                        # sell
+                        client.shopping_cart.add_article(article, int(quantity))
+                        print(f'{article.product} has been added to your shopping cart')
+                else:
+                    print(f'We don\'t have enough {article_name} to sell')
+                print('-' * 60)
+            # not got
+            else:
+                print(f'{article_name} don\'t exist')
+            # Show my ticket
+            client.shopping_cart.display()
+
+            # handle continue or stop
+            paystate = input('Do you want to pay and exit? (yes/no): ')
+            #do yu want to continue
+            if paystate.lower() in ['y','yes','oui','o']:
+                client.shopping_cart.pay()
+                #exit the loop
+                break
+
+
+    else:
+        print(' Please log-in the client before shopping')
 
 
 def get_valid_name(label: str) -> str:
@@ -79,7 +115,7 @@ def get_valid_name(label: str) -> str:
     Removes non-alphabetic characters and ensures minimum length.
     """
     while True:
-        name = input(f'[Customer manager] Insert customer {label} name: ').strip().lower()
+        name = input(f'Insert customer {label} name: ').strip().lower()
         name = ''.join(char for char in name if char.isalpha()).capitalize()
         if name and len(name) >= 3:
             return name
