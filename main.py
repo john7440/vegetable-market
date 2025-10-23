@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-*
+from sys import path_hooks
+
 from history import History
 from inventory import Inventory
 from inventory_manager import InventoryManager
 from client import Client
 import datetime
+
 
 def main_menu(sys: InventoryManager) -> None:
     """
@@ -105,9 +108,9 @@ def shopping(client: Client | None, sys: InventoryManager) -> None:
             client.shopping_cart.display()
 
             # Handle continue or stop
-            paystate = input('Do you want to pay and exit? (yes/no): ')
+            pay_state = input('Do you want to pay and exit? (yes/no): ')
 
-            if paystate.lower() in ['y','yes','oui','o']:
+            if pay_state.lower() in ['y','yes','oui','o']:
                 client.shopping_cart.pay()
                 #exit the loop
                 break
@@ -142,7 +145,6 @@ def get_or_create_client() -> Client:
         print(f'[Login] Welcome back {first_name} {last_name}')
 
     return Client.get_client(first_name, last_name)
-
 
 
 def main():
