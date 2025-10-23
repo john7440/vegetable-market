@@ -4,14 +4,19 @@ import datetime
 from dataclasses import dataclass, field
 
 from typing import List, ClassVar, Optional
+from shopping_cart import ShoppingCart
 
 
 @dataclass
 class Client:
     first_name : str
     last_name : str
-    shopping_cart : Optional['ShoppingCart'] = None
+    shopping_cart : Optional['ShoppingCart'] = field(init=False)
     history_list : List['History'] = field(default_factory=list)
+
+    def __post_init__(self):
+        from shopping_cart import ShoppingCart  # import aqui para evitar circular import
+        self.shopping_cart = ShoppingCart(owner=self)
 
     #static
     clients: ClassVar[List['Client']] = []
