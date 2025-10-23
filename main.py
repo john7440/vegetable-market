@@ -7,6 +7,9 @@ from client import Client
 import datetime
 
 def main_menu(sys: InventoryManager) -> None:
+    """
+    This is the main menu, it gives the 5 options to the user.
+    """
     client : Client | None = None
     """
     This is the main menu of the application.
@@ -16,7 +19,7 @@ def main_menu(sys: InventoryManager) -> None:
         print(' ' * 15 + "Welcome to 'Au Bon Marché'!")
         print('-' * 60)
         print('Choose an option:')
-        print('1 - Start Session')
+        print('1 - Log In / New client')
         print('2 - Shopping')
         print('3 - Display Inventory')
         print('4 - Daily Sales')
@@ -56,6 +59,11 @@ def main_menu(sys: InventoryManager) -> None:
 
 
 def shopping(client: Client | None, sys: InventoryManager):
+    """
+    This function is called when a shopping cart is created.
+    :param client: the actual client.
+    :param sys: the InventoryManager.
+    """
     if client:
         # show list
         sys.display_inventory()
