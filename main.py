@@ -7,6 +7,7 @@ from client import Client
 import datetime
 
 def main_menu(sys: InventoryManager) -> None:
+    client : Client | None = None
     """
     This is the main menu of the application.
     """
@@ -16,7 +17,7 @@ def main_menu(sys: InventoryManager) -> None:
         print('-' * 60)
         print('Choose an option:')
         print('1 - Start Session')
-        print('2 - Shopping')
+        print('2 - git ')
         print('3 - Display Inventory')
         print('4 - Daily Sales')
         print('5 - Exit')
@@ -37,9 +38,28 @@ def main_menu(sys: InventoryManager) -> None:
             print(f'[Customer manager] {client.first_name} {client.last_name} is now active.')
 
         if option == 2:
-            client = get_or_create_client()
-            print(f'[Shopping] {client.first_name} {client.last_name} is ready to shop.')
+            #client = get_or_create_client()
+            #print(f'[Shopping] {client.first_name} {client.last_name} is ready to shop.')
+            if client:
+                #show list
+                sys.display_inventory()
 
+                #ask product and quantity
+                while True:
+                    print(client.shopping_cart.articles_list.items)
+                    article_name = input('[Customer manager] Insert the article name:')
+                    article = sys.get_item(article_name)
+                    if article:
+                        client.shopping_cart.articles_list.items.append(article)
+                        print(f'[Customer manager]{article.product} has been added to your shopping cart')
+                    else:
+                        print(f'[Customer manager]{article_name} don\'t exist')
+
+
+
+
+            else:
+                print('[Customer manager] Please log-in the client before shopping')
         if option == 3:
             sys.display_inventory()
 
