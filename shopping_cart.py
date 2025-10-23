@@ -1,5 +1,6 @@
 import datetime
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Optional
 
 from history import History
 from inventory import Inventory
@@ -9,8 +10,8 @@ from person import Person
 
 @dataclass
 class ShoppingCart:
-    articles_list: InventoryManager
-    owner : Person
+    owner: Person
+    articles_list: 'InventoryManager' = field(default_factory=InventoryManager)
 
 
     def add_article(self, article : Inventory, quantity : int):
