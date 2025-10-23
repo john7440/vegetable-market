@@ -11,7 +11,7 @@ def main_menu(sys: InventoryManager) -> None:
     """
     while True:
         print('-' * 60)
-        print("Welcome to 'Au Bon Marché'!")
+        print(' ' * 15 + "Welcome to 'Au Bon Marché'!")
         print('-' * 60)
         print('Choose an option:')
         print('1 - Add new Customer')
