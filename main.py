@@ -23,9 +23,11 @@ def main_menu(sys: InventoryManager) -> None:
         option = int(input('Enter your choice: '))
         if option == 1:
             # insert the first name
-            first_name = input('[Costumer manager] Insert costumer first name: ')
+            first_name = input('[Costumer manager] Insert costumer first name: ').strip().lower()
+            first_name = ''.join(char for char in first_name if char.isalpha()).capitalize()
             # insert the last name
-            last_name = input('[Costumer manager] Insert costumer last name: ')
+            last_name = input('[Costumer manager] Insert costumer last name: ').strip().lower()
+            last_name = ''.join(char for char in last_name if char.isalpha()).capitalize()
             if not Person.exists(first_name, last_name):
                 Person.clients.append(Person(first_name, last_name))
                 print(f'[Costumer manager] {first_name} {last_name} added to the system.')
