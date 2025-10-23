@@ -54,17 +54,33 @@ def main_menu(sys: InventoryManager) -> None:
                 print(f'[Costumer manager] {first_name} {last_name} added to the system.')
             else:
                 print(f'[Costumer manager] {first_name} {last_name} already exist.')
+
         if option == 2:
             pass
+
         if option == 3:
             sys.display_inventory()
+
         if option == 4:
             history_today = History.get_by_date(datetime.datetime.now().date())
             for ht in history_today:
                 print(ht.articles_list.display_inventory())
+
         if option == 5:
             print('Thank you for shopping! See you soon!')
             break
+
+
+    def login(first_name : str, last_name : str):
+        """
+        Function to login or register the client into the system
+        :param first_name: string / First name of the flient
+        :param last_name: string / Last name of the client
+        :return: the client itself
+        """
+        if not Person.exists(first_name, last_name):
+            Person.clients.append(Person(first_name, last_name))
+        return Person.get_client(first_name, last_name)
 
 
 def main():
