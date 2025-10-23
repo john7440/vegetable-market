@@ -1,8 +1,6 @@
 from __future__ import annotations
 import datetime
 from dataclasses import dataclass, field
-from typing import Optional
-
 from inventory import Inventory
 from inventory_manager import InventoryManager
 
