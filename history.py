@@ -1,14 +1,19 @@
 from __future__ import annotations
 from typing import List
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import datetime
 
 
 @dataclass
 class History:
-    articles_list : 'InventoryManager'
-    owner : 'Client'
-    date : datetime.date
+    from inventory_manager import InventoryManager
+    from client import Client
+    owner: Client
+    articles_list : 'InventoryManager' = field(default_factory=InventoryManager)
+    date : datetime.date = field(default_factory=datetime.date.today)
+
+    def __post_init__(self):
+        self.article_list = self.owner.shopping_cart.articles_list
 
 
     @staticmethod

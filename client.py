@@ -15,7 +15,7 @@ class Client:
     history_list : List['History'] = field(default_factory=list)
 
     def __post_init__(self):
-        from shopping_cart import ShoppingCart  # import aqui para evitar circular import
+        from shopping_cart import ShoppingCart
         self.shopping_cart = ShoppingCart(owner=self)
 
     #static

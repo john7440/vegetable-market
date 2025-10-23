@@ -29,7 +29,8 @@ class ShoppingCart:
 
     def pay(self):
         from history import History
-        self.owner.history_list.append(History(self.articles_list, self.owner, datetime.datetime.now().date()))
+        self.owner.history_list.append(History(self.owner))
+        
 
     def display(self) -> None:
         """Display the inventory product by product and
