@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 
-
+from history import History
 from inventory_manager import InventoryManager
 from typing import List, ClassVar, Optional
 
@@ -11,7 +11,7 @@ class Person:
     first_name : str
     last_name : str
     shopping_cart : Optional['ShoppingCart'] = None
-    history_list : List[InventoryManager] = field(default_factory=list)
+    history_list : List[History] = field(default_factory=list)
 
     #static
     clients: ClassVar[List['Person']] = []
@@ -23,7 +23,7 @@ class Person:
 
     def get_history_n(self, number : int):
         if 0 <= number <= len(self.history_list)-1:
-            return self.history_list[number].display_inventory()
+            return self.history_list[number].articles_list.display_inventory()
         else:
             return 'no available history number'
 
