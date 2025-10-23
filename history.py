@@ -3,7 +3,6 @@ from typing import List
 from dataclasses import dataclass
 import datetime
 
-from client import Client
 
 @dataclass
 class History:
@@ -14,6 +13,7 @@ class History:
 
     @staticmethod
     def get_by_date(date : datetime.date):
+        from client import Client
         list_of_article_by_date : List['InventoryManager'] = list()
         users = Client.clients
 
