@@ -41,7 +41,7 @@ class Inventory:
         :return: a formatted string.
         """
         unit = "unit" if self.sale_type == 'unit' else "kg"
-        return f'{self.product:<20} | {self.stock:14.2f} {unit:5} |    {self.price:.2f} {unit}/€'
+        return f'{self.product:<20} | {self.stock:14.2f} {unit:5} |    {self.price:.2f} €/{unit}'
 
 
     def total_value(self) -> float:
