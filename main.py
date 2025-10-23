@@ -58,7 +58,7 @@ def main_menu(sys: InventoryManager) -> None:
             break
 
 
-def shopping(client: Client | None, sys: InventoryManager):
+def shopping(client: Client | None, sys: InventoryManager) -> None:
     """
     This function is called when a shopping cart is created.
     :param client: the actual client.
@@ -84,35 +84,33 @@ def shopping(client: Client | None, sys: InventoryManager):
                     if any(item.product == article.product for item in client.shopping_cart.articles_list.items):
                         quantity = int(quantity)
 
-                        # sell quantity
+                        # Sell quantity
                         article.sell(quantity)
 
-                        # increase in our list
+                        # Increase in our list
                         for sc_article in client.shopping_cart.articles_list.items:
                             if sc_article.product == article.product:
                                 sc_article.stock += quantity
                     else:
-                        # sell
+                        # Sell
                         client.shopping_cart.add_article(article, int(quantity))
                         print(f'{article.product} has been added to your shopping cart')
                 else:
                     print(f'We don\'t have enough {article_name} to sell')
                 print('-' * 60)
-            # not got
+
             else:
                 print(f'{article_name} don\'t exist')
             # Show my ticket
             client.shopping_cart.display()
 
-            # handle continue or stop
+            # Handle continue or stop
             paystate = input('Do you want to pay and exit? (yes/no): ')
-            #do yu want to continue
+
             if paystate.lower() in ['y','yes','oui','o']:
                 client.shopping_cart.pay()
                 #exit the loop
                 break
-
-
     else:
         print(' Please log-in the client before shopping')
 
@@ -130,7 +128,7 @@ def get_valid_name(label: str) -> str:
         print(f'Please enter a valid {label} name. At least 3 characters long.')
 
 
-def get_or_create_client():
+def get_or_create_client() -> Client:
     """
     Ask for first and last name, create the client if not found, or return existing one.
     """
