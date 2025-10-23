@@ -1,4 +1,7 @@
+import datetime
 from dataclasses import dataclass
+
+from history import History
 from inventory import Inventory
 from inventory_manager import InventoryManager
 from person import Person
@@ -6,7 +9,7 @@ from person import Person
 
 @dataclass
 class ShoppingCart:
-    articles_list : InventoryManager
+    articles_list: InventoryManager
     owner : Person
 
 
@@ -28,4 +31,4 @@ class ShoppingCart:
 
 
     def pay(self):
-        self.owner.history_list.append(self.articles_list)
+        self.owner.history_list.append(History(self.articles_list, self.owner, datetime.datetime.now().date()))
