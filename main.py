@@ -3,7 +3,7 @@
 
 from inventory import Inventory
 from inventory_manager import InventoryManager
-
+from person import Person
 
 def main_menu(sys: InventoryManager) -> None:
     """
@@ -22,7 +22,15 @@ def main_menu(sys: InventoryManager) -> None:
         print('-' * 60)
         option = int(input('Enter your choice: '))
         if option == 1:
-            pass
+            # insert the first name
+            first_name = input('[Costumer manager] Insert costumer first name: ')
+            # insert the last name
+            last_name = input('[Costumer manager] Insert costumer last name: ')
+            if not Person.exists(first_name, last_name):
+                Person.clients.append(Person(first_name, last_name))
+                print(f'[Costumer manager] {first_name} {last_name} added to the system.')
+            else:
+                print(f'[Costumer manager] {first_name} {last_name} already exist.')
         if option == 2:
             pass
         if option == 3:
