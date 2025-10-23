@@ -1,8 +1,8 @@
 from __future__ import annotations
+
+import datetime
 from dataclasses import dataclass, field
 
-from history import History
-from inventory_manager import InventoryManager
 from typing import List, ClassVar, Optional
 
 
@@ -11,7 +11,7 @@ class Person:
     first_name : str
     last_name : str
     shopping_cart : Optional['ShoppingCart'] = None
-    history_list : List[History] = field(default_factory=list)
+    history_list : List['History'] = field(default_factory=list)
 
     #static
     clients: ClassVar[List['Person']] = []
@@ -34,3 +34,10 @@ class Person:
                 return True
         #not created i came there
         return False
+
+    def get_history_by_date(self, date : datetime.date):
+        history_list_by_date : List['history'] = list()
+        for history in self.history_list:
+            if history.date == date:
+                history_list_by_date.append(history)
+        return history_list_by_date
