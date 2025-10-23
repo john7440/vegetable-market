@@ -63,7 +63,7 @@ def shopping(client: Client | None, sys: InventoryManager):
         # ask product and quantity
         while True:
             # enter name of article
-            article_name = input('Insert the article name: ')
+            article_name = input('Insert the article name: ').strip().capitalize()
             # get the item
             article = sys.get_item(article_name)
             # if item is got
