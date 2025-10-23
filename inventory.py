@@ -46,7 +46,7 @@ class Inventory:
 
     def total_value(self) -> float:
         """
-        This function calculates the total value of the inventory.
-        :return: the value of the inventory.
+        This function calculates the total value of an item.
+        :return: the value of each item.
         """
         return self.price * self.stock
