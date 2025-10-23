@@ -13,7 +13,7 @@ class History:
     date : datetime.date = field(default_factory=datetime.date.today)
 
     def __post_init__(self):
-        self.article_list = self.owner.shopping_cart.articles_list
+        self.articles_list = self.owner.shopping_cart.articles_list
 
 
     @staticmethod
