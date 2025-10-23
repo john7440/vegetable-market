@@ -35,6 +35,14 @@ class Person:
         #not created i came there
         return False
 
+    @staticmethod
+    def get_client(first_name, last_name):
+        for client in Person.clients:
+            if client.first_name == first_name and client.last_name == last_name:
+                return client
+        # not created i came there
+        return False
+
     def get_history_by_date(self, date : datetime.date):
         history_list_by_date : List['history'] = list()
         for history in self.history_list:
