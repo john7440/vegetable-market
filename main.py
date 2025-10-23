@@ -20,23 +20,33 @@ def main_menu(sys: InventoryManager) -> None:
         print('4 - Daily Sales')
         print('5 - Exit')
         print('-' * 60)
-        option = int(input('Enter your choice: '))
+
+        while True:
+            try:
+                option = int(input('Enter your choice: '))
+                if option in range(1, 6):
+                    break
+                else:
+                    print('Invalid choice, please enter a number between 1 and 5')
+            except ValueError:
+                print('Invalid choice, please try again.')
+
         if option == 1:
             # insert the first name
             while True:
                 first_name = input('[Costumer manager] Insert costumer first name: ').strip().lower()
                 first_name = ''.join(char for char in first_name if char.isalpha()).capitalize()
-                if first_name:
+                if first_name and len(first_name) >= 3:
                     break
-                print('Please enter a valid first name.')
+                print('Please enter a valid first name. At least 3 characters long.')
 
             while True:
                 # insert the last name
                 last_name = input('[Costumer manager] Insert costumer last name: ').strip().lower()
                 last_name = ''.join(char for char in last_name if char.isalpha()).capitalize()
-                if last_name:
+                if last_name and len(last_name) >= 3:
                     break
-                print('Please enter a valid last name.')
+                print('Please enter a valid last name. At least 3 characters long.')
 
             if not Person.exists(first_name, last_name):
                 Person.clients.append(Person(first_name, last_name))
