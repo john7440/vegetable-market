@@ -57,7 +57,7 @@ def main_menu(sys: InventoryManager) -> None:
 
         if option == 2:
             client = login()
-
+            print(f'[Debug] {client}')
         if option == 3:
             sys.display_inventory()
 
@@ -71,7 +71,7 @@ def main_menu(sys: InventoryManager) -> None:
             break
 
 
-def login(first_name : str, last_name : str):
+def login():
     """
     Function to login or register the client into the system
     :param first_name: string / First name of the flient
@@ -96,13 +96,11 @@ def login(first_name : str, last_name : str):
 
     if not Person.exists(first_name, last_name):
         Person.clients.append(Person(first_name, last_name))
-        print(f'[Costumer manager] {first_name} {last_name} added to the system.')
-    else:
-        print(f'[Costumer manager] {first_name} {last_name} already exist.')
+        print(f'[Register] {first_name} {last_name} has been created')
 
-    if not Person.exists(first_name, last_name):
-        Person.clients.append(Person(first_name, last_name))
-    return Person.get_client(first_name, last_name)
+    client = Person.get_client(first_name, last_name)
+    print(f'[Login] Welcome {client.first_name} {client.last_name}')
+    return client
 
 
 def main():
