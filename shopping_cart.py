@@ -3,13 +3,24 @@ from dataclasses import dataclass, field
 from product import Product
 from inventory_manager import InventoryManager
 
+
 @dataclass
 class ShoppingCart:
-    owner: 'Client'
+    """
+    This class represents a shopping cart associated with a client.
+    It manages articles added to the cart and handles payment.
+    """
+    owner: 'Client'  # type: ignore
     articles_list: 'InventoryManager' = field(default_factory=InventoryManager)
 
 
-    def add_article(self, article : Product, quantity : int):
+    def add_article(self, article : Product, quantity : int) -> None:
+        """
+        This function adds an article to the cart after validation.
+        :param article: the product to add.
+        :param quantity: the quantity desired.
+        :return: ValueError if the product is not available.
+        """
         try:
             article.sell(quantity)
             #create the article inside
@@ -18,18 +29,29 @@ class ShoppingCart:
             print(f'{error}')
 
 
-    def get_total_price(self):
+    def get_total_price(self) -> float:
+        """
+        This function calculate the total price of the shopping cart.
+        :return: the total price.
+        """
         return  sum(item.total_value() for item in self.articles_list.items)
 
 
-    def display_cart(self):
+    def display_cart(self) -> None:
+        """
+        This function displays the cart.
+        """
         return self.articles_list.display_inventory()
 
 
-    def pay(self):
+    def pay(self) -> None:
+        """
+        This function finalises the purchase and save the cart to the client's history.
+        """
         from history import History
         self.owner.history_list.append(History(self.owner))
         self.articles_list.items.clear()
+
 
     def display(self) -> None:
         """Display the inventory product by product and
