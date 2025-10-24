@@ -13,8 +13,8 @@ class Product:
     price: float
     sale_type: str
     category: str
-    # ex utilisation : kiwi = Inventory('Kiwi', stock = 5.0, price = 3.5, sale_type = 'kg', category = 'fruit')
-                    #  potiron = Inventory('Potiron', stock = 6.0, price = 2.5, sale_type = 'unit', category = 'vegetable')
+    # ex utilisation : kiwi = Product('Kiwi', stock = 5.0, price = 3.5, sale_type = 'kg', category = 'fruit')
+                    #  potiron = Product('Potiron', stock = 6.0, price = 2.5, sale_type = 'unit', category = 'vegetable')
 
 
     def sell(self, quantity: float) -> float:
