@@ -18,7 +18,7 @@ Elle permet de **suivre les stocks**, **enregistrer les clients**, **effectuer d
 - **inventory_manager.py** : gestion du stock global.
 - **shopping_cart.py** : panier du client.
 - **client.py** : gestion de client.
-- **history.py** : gestion de l'historique des achats.
+- **history_record.py** : gestion de l'historique des achats.
 - **main.py** : Point d'entrée de l'application.
 - **README.md** : Description de l'application.
 
