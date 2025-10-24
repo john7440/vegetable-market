@@ -48,9 +48,10 @@ def main_menu(sys: InventoryManager) -> None:
 
         if option == 4:
             history_today = History.get_by_date(datetime.datetime.now().date())
+            print('-----------------------Today\'s Resume-----------------------')
             for h in history_today:
                 print('-'*60)
-                print(h.owner.first_name,h.owner.last_name)
+                print('Client: '+ h.owner.first_name,h.owner.last_name)
                 h.articles_list.display_inventory()
 
         if option == 5:
