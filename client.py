@@ -61,7 +61,7 @@ class Client:
 
 
     @staticmethod
-    def get_client(first_name: str, last_name: str) -> Optional[Client]:
+    def get_client(first_name: str, last_name: str) -> Client | None:
         """
         This function get a client by its first name and last name.
         :param first_name: first name of the client.
