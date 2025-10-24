@@ -37,13 +37,6 @@ class ShoppingCart:
         return  sum(item.total_value() for item in self.articles_list.items)
 
 
-    def display_cart(self) -> None:
-        """
-        This function displays the cart.
-        """
-        return self.articles_list.display_inventory()
-
-
     def pay(self) -> None:
         """
         This function finalises the purchase and save the cart to the client's history.
