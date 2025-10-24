@@ -11,15 +11,18 @@ class InventoryManager:
     """
     items : List[Product] = field(default_factory=list)
 
-    def display_inventory(self) -> None:
+    def display_inventory(self) -> str:
         """Display the inventory product by product and
         the total value of the inventory"""
-        print('=' * 60)
-        print(f"{'Product':<20} | {'Quantity':<20} | {'Price':<20} ")
-        print('-' * 60)
+        output = '=' * 60 + '\n'
+        output += f"{'Product':<20} | {'Quantity':<20} | {'Price':<20}\n"
+        output += '-' * 60 + '\n'
         for item in self.items:
-            print(item.display())
-        print('=' * 60)
+            output += item.display() + '\n'  # Assuming item.display() returns a string
+        output += '=' * 60
+        #total = sum(item.total_value() for item in self.items)
+        #output += f'Total inventory value: {total:.2f} €\n'
+        return output
 
     def add_item(self, item: Product) -> None:
         """Add an item to the inventory"""
