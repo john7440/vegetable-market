@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-*
-from sys import path_hooks
 
 from history import History
 from inventory import Inventory
@@ -61,61 +60,68 @@ def main_menu(sys: InventoryManager) -> None:
             break
 
 
-def shopping(client: Client | None, sys: InventoryManager) -> None:
+def shopping(client: Client | None , sys: InventoryManager) -> None:
     """
-    This function is called when a shopping cart is created.
-    :param client: the actual client.
-    :param sys: the InventoryManager.
+    Handles the shopping process for a logged-in client.
+    Displays inventory, manages item selection, quantity validation, and payment.
     """
-    if client:
-        # show list
-        sys.display_inventory()
+    if not client:
+        print('[Error] Please log in before shopping.')
+        return
 
-        # ask product and quantity
-        while True:
-            # enter name of article
-            article_name = input('Insert the article name: ').strip().capitalize()
-            # get the item
-            article = sys.get_item(article_name)
-            # if item is got
-            if article:
-                # get desired quantity
-                quantity = input(f"Insert the desired quantity of {article.product} in {article.sale_type}: ")
-                # if the quantity is valid
-                if quantity.isdigit() and int(quantity) <= article.stock:
-                    # if the article is already present
-                    if any(item.product == article.product for item in client.shopping_cart.articles_list.items):
-                        quantity = int(quantity)
+    print('-' * 60)
+    print(f"[Shopping] Welcome {client.first_name} {client.last_name}!")
+    sys.display_inventory()
 
-                        # Sell quantity
-                        article.sell(quantity)
+    while True:
+        article_name = input('Insert the article name: ').strip().capitalize()
+        article = sys.get_item(article_name)
 
-                        # Increase in our list
-                        for sc_article in client.shopping_cart.articles_list.items:
-                            if sc_article.product == article.product:
-                                sc_article.stock += quantity
-                    else:
-                        # Sell
-                        client.shopping_cart.add_article(article, int(quantity))
-                        print(f'{article.product} has been added to your shopping cart')
-                else:
-                    print(f'We don\'t have enough {article_name} to sell')
-                print('-' * 60)
+        if not article:
+            print(f"[Error] '{article_name}' does not exist in inventory.")
+            continue
 
-            else:
-                print(f'{article_name} don\'t exist')
-            # Show my ticket
-            client.shopping_cart.display()
+        quantity_input = input(f"Insert the desired quantity of {article.product} in {article.sale_type}: ").strip()
+        try:
+            quantity = int(quantity_input)
+            if quantity <= 0:
+                print("[Error] Quantity must be a positive number.")
+                continue
+            if quantity > article.stock:
+                print(f"[Error] Not enough stock for {article.product}. Available: {article.stock}")
+                continue
+        except ValueError:
+            print("[Error] Invalid quantity. Please enter a number.")
+            continue
 
-            # Handle continue or stop
-            pay_state = input('Do you want to pay and exit? (yes/no): ')
+        # Check if item already in cart
+        existing_item = next((item for item in client.shopping_cart.articles_list.items if item.product == article.product), None)  # type: ignore
 
-            if pay_state.lower() in ['y','yes','oui','o']:
-                client.shopping_cart.pay()
-                #exit the loop
-                break
-    else:
-        print(' Please log-in the client before shopping')
+        article.sell(quantity)
+
+        article_copy = Inventory(
+            product=article.product,
+            stock=quantity,
+            price=article.price,
+            sale_type=article.sale_type,
+            category=article.category
+        )
+
+        if existing_item:
+            existing_item.stock += quantity
+            print(f"[Update] Added {quantity} more of {article.product} to your cart.")
+        else:
+            client.shopping_cart.add_article(article_copy, quantity)  # type: ignore
+            print(f"[Add] {article.product} has been added to your shopping cart.")
+
+        print('-' * 60)
+        client.shopping_cart.display()  # type: ignore
+
+        pay_state = input('Do you want to pay and exit? (yes/no): ').strip().lower()
+        if pay_state in ['y', 'yes', 'oui', 'o']:
+            client.shopping_cart.pay()  # type: ignore
+            print("[Checkout] Thank you for your purchase!")
+            break
 
 
 def get_valid_name(label: str) -> str:
@@ -144,7 +150,7 @@ def get_or_create_client() -> Client:
     else:
         print(f'[Login] Welcome back {first_name} {last_name}')
 
-    return Client.get_client(first_name, last_name)
+    return Client.get_client(first_name, last_name)  # type: ignore
 
 
 def main():
