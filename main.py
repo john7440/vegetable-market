@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-*
 
 from history import History
-from inventory import Inventory
+from product import Product
 from inventory_manager import InventoryManager
 from client import Client
 import datetime
@@ -99,7 +99,7 @@ def shopping(client: Client | None , sys: InventoryManager) -> None:
 
         article.sell(quantity)
 
-        article_copy = Inventory(
+        article_copy = Product(
             product=article.product,
             stock=quantity,
             price=article.price,
@@ -161,26 +161,26 @@ def main():
     manager = InventoryManager()
 
     #Add to inventory
-    manager.add_item(Inventory(product ='Clémentine', stock = 6.0, price = 2.90, sale_type= 'kg', category= 'fruit'))
-    manager.add_item(Inventory(product='Datte', stock= 4.0, price= 7.0, sale_type='kg', category='fruit'))
-    manager.add_item(Inventory(product='Grenade', stock= 3.0, price= 3.5, sale_type='kg', category='fruit'))
-    manager.add_item(Inventory(product='Kaki', stock= 3.0, price= 4.5, sale_type='kg', category='fruit'))
-    manager.add_item(Inventory(product='Kiwi', stock= 5.0, price= 3.5, sale_type='kg', category='fruit'))
-    manager.add_item(Inventory(product='Mandarine', stock= 6.0, price= 2.8, sale_type='kg', category='fruit'))
-    manager.add_item(Inventory(product='Orange', stock= 8.0, price= 1.5, sale_type='kg', category='fruit'))
-    manager.add_item(Inventory(product='Pamplemousse', stock= 8.0, price= 2.0, sale_type='unit', category='fruit'))
-    manager.add_item(Inventory(product='Poire', stock= 5.0, price= 2.5, sale_type='kg', category='fruit'))
-    manager.add_item(Inventory(product='Pomme', stock= 8.0, price= 1.5, sale_type='kg', category='fruit'))
-    manager.add_item(Inventory(product='Carotte', stock= 7.0, price= 1.3, sale_type='kg', category='vegetable'))
-    manager.add_item(Inventory(product='Choux de Bruxelles', stock= 4.0, price= 4.0, sale_type='kg', category='vegetable'))
-    manager.add_item(Inventory(product='Chou vert', stock= 12.0, price= 2.5, sale_type='unit', category='vegetable'))
-    manager.add_item(Inventory(product='Courge butternut', stock= 6.0, price= 2.5, sale_type='unit', category='vegetable'))
-    manager.add_item(Inventory(product='Endive', stock= 5.0, price= 2.5, sale_type='kg', category='vegetable'))
-    manager.add_item(Inventory(product='Épinard', stock= 4.0, price= 2.6, sale_type='kg', category='vegetable'))
-    manager.add_item(Inventory(product='Poireau', stock= 5.0, price= 1.2, sale_type='kg', category='vegetable'))
-    manager.add_item(Inventory(product='Potiron', stock= 6.0, price= 2.5, sale_type='unit', category='vegetable'))
-    manager.add_item(Inventory(product='Radis noir', stock= 10.0, price= 5.0, sale_type='unit', category='vegetable'))
-    manager.add_item(Inventory(product='Salsifis', stock= 3.0, price= 2.5, sale_type='kg', category='vegetable'))
+    manager.add_item(Product(product ='Clémentine', stock = 6.0, price = 2.90, sale_type='kg', category='fruit'))
+    manager.add_item(Product(product='Datte', stock= 4.0, price= 7.0, sale_type='kg', category='fruit'))
+    manager.add_item(Product(product='Grenade', stock= 3.0, price= 3.5, sale_type='kg', category='fruit'))
+    manager.add_item(Product(product='Kaki', stock= 3.0, price= 4.5, sale_type='kg', category='fruit'))
+    manager.add_item(Product(product='Kiwi', stock= 5.0, price= 3.5, sale_type='kg', category='fruit'))
+    manager.add_item(Product(product='Mandarine', stock= 6.0, price= 2.8, sale_type='kg', category='fruit'))
+    manager.add_item(Product(product='Orange', stock= 8.0, price= 1.5, sale_type='kg', category='fruit'))
+    manager.add_item(Product(product='Pamplemousse', stock= 8.0, price= 2.0, sale_type='unit', category='fruit'))
+    manager.add_item(Product(product='Poire', stock= 5.0, price= 2.5, sale_type='kg', category='fruit'))
+    manager.add_item(Product(product='Pomme', stock= 8.0, price= 1.5, sale_type='kg', category='fruit'))
+    manager.add_item(Product(product='Carotte', stock= 7.0, price= 1.3, sale_type='kg', category='vegetable'))
+    manager.add_item(Product(product='Choux de Bruxelles', stock= 4.0, price= 4.0, sale_type='kg', category='vegetable'))
+    manager.add_item(Product(product='Chou vert', stock= 12.0, price= 2.5, sale_type='unit', category='vegetable'))
+    manager.add_item(Product(product='Courge butternut', stock= 6.0, price= 2.5, sale_type='unit', category='vegetable'))
+    manager.add_item(Product(product='Endive', stock= 5.0, price= 2.5, sale_type='kg', category='vegetable'))
+    manager.add_item(Product(product='Épinard', stock= 4.0, price= 2.6, sale_type='kg', category='vegetable'))
+    manager.add_item(Product(product='Poireau', stock= 5.0, price= 1.2, sale_type='kg', category='vegetable'))
+    manager.add_item(Product(product='Potiron', stock= 6.0, price= 2.5, sale_type='unit', category='vegetable'))
+    manager.add_item(Product(product='Radis noir', stock= 10.0, price= 5.0, sale_type='unit', category='vegetable'))
+    manager.add_item(Product(product='Salsifis', stock= 3.0, price= 2.5, sale_type='kg', category='vegetable'))
 
     # Main menu loop
     main_menu(manager)

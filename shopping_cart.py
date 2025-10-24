@@ -1,6 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
-from inventory import Inventory
+from product import Product
 from inventory_manager import InventoryManager
 
 @dataclass
@@ -9,11 +9,11 @@ class ShoppingCart:
     articles_list: 'InventoryManager' = field(default_factory=InventoryManager)
 
 
-    def add_article(self, article : Inventory, quantity : int):
+    def add_article(self, article : Product, quantity : int):
         try:
             article.sell(quantity)
             #create the article inside
-            self.articles_list.add_item(Inventory(article.product, quantity, article.price, article.sale_type, article.category))
+            self.articles_list.add_item(Product(article.product, quantity, article.price, article.sale_type, article.category))
         except ValueError as error:
             print(f'{error}')
 

@@ -1,4 +1,4 @@
-from inventory import Inventory
+from product import Product
 from dataclasses import dataclass, field
 from typing import List, Optional
 
@@ -9,7 +9,7 @@ class InventoryManager:
     This class is made to manage the stock, we can easily add more items
     and display them.
     """
-    items : List[Inventory] = field(default_factory=list)
+    items : List[Product] = field(default_factory=list)
 
     def display_inventory(self) -> None:
         """Display the inventory product by product and
@@ -21,11 +21,11 @@ class InventoryManager:
             print(item.display())
         print('=' * 60)
 
-    def add_item(self, item: Inventory) -> None:
+    def add_item(self, item: Product) -> None:
         """Add an item to the inventory"""
         self.items.append(item)
 
-    def get_item(self, item_name) -> Optional[Inventory]:
+    def get_item(self, item_name) -> Optional[Product]:
         """
         This function is made to get the item from the inventory
         :param item_name: the name of the product.

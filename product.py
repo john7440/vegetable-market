@@ -3,7 +3,7 @@ from typing import Literal
 
 
 @dataclass
-class Inventory:
+class Product:
     """
     This class is made to manage products
     (vegetables and fruits), we have a definite
