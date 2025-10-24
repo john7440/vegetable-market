@@ -1,7 +1,7 @@
 from __future__ import annotations
 import datetime
 from dataclasses import dataclass, field
-from typing import List, ClassVar, Optional, TYPE_CHECKING
+from typing import List, ClassVar, TYPE_CHECKING
 from shopping_cart import ShoppingCart
 
 if TYPE_CHECKING:
@@ -12,8 +12,8 @@ if TYPE_CHECKING:
 class Client:
     first_name : str
     last_name : str
-    shopping_cart : Optional['ShoppingCart'] = field(init=False)
-    history_list : List['History'] = field(default_factory=list)
+    shopping_cart : ShoppingCart = field(init=False)
+    history_list : List[History] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         """
@@ -22,9 +22,8 @@ class Client:
         from shopping_cart import ShoppingCart
         self.shopping_cart = ShoppingCart(owner=self)
 
-    #static
-    clients: ClassVar[List[Client]] = []
 
+    clients: ClassVar[List[Client]] = []
 
     def get_histories(self) -> str:
         """
@@ -71,6 +70,7 @@ class Client:
             if client.first_name == first_name and client.last_name == last_name:
                 return client
         return None
+
 
     def get_history_by_date(self, date : datetime.date) -> List[History]:
         """
