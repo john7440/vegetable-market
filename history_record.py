@@ -24,7 +24,7 @@ class History:
         This method initializes the history by coping the current shopping cart
         of the client.
         """
-        self.articles_list = deepcopy(self.owner.shopping_cart.articles_list)  # type: ignore
+        self.articles_list = deepcopy(self.owner.shopping_cart.articles_list)
 
 
     @staticmethod
