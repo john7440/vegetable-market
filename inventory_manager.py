@@ -1,6 +1,7 @@
 from inventory import Inventory
 from dataclasses import dataclass, field
-from typing import List
+from typing import List, Optional
+
 
 @dataclass
 class InventoryManager:
@@ -24,7 +25,12 @@ class InventoryManager:
         """Add an item to the inventory"""
         self.items.append(item)
 
-    def get_item(self, item_name):
+    def get_item(self, item_name) -> Optional[Inventory]:
+        """
+        This function is made to get the item from the inventory
+        :param item_name: the name of the product.
+        :return: the matching inventory item, or None if there is no item.
+        """
         for item in self.items:
             if item.product == item_name:
                 return item
