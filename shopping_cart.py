@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
-from product import Product
+from product_classe import Product
 from inventory_manager import InventoryManager
 
 if TYPE_CHECKING:
@@ -27,7 +27,7 @@ class ShoppingCart:
         try:
             article.sell(quantity)
             #create the article inside
-            self.articles_list.add_item(Product(article.product, quantity, article.price, article.sale_type, article.category))
+            self.articles_list.add_item(Product(article.name, quantity, article.price, article.sale_type, article.category))
         except ValueError as error:
             print(f'{error}')
 
