@@ -40,7 +40,8 @@ def main_menu(manager: InventoryManager) -> None:
         match option:
             case 1:
                 client = get_or_create_client()
-                print(f'{client.first_name} {client.last_name} is now active.')
+                if client is not None:
+                    print(f'{client.first_name} {client.last_name} is now active.')
 
             case 2:
                 shopping(client, manager)
@@ -138,9 +139,10 @@ def get_valid_name(label: str) -> str:
         print(f'Please enter a valid {label} name. At least 3 characters long.')
 
 
-def get_or_create_client() -> Client:
+def get_or_create_client() -> Client | None:
     """
     Ask for first and last name, create the client if not found, or return existing one.
+    :return: client or None.
     """
     first_name = get_valid_name("first")
     last_name = get_valid_name("last")
@@ -151,7 +153,7 @@ def get_or_create_client() -> Client:
     else:
         print(f'\n[Login] Welcome back {first_name} {last_name}')
 
-    return Client.get_client(first_name, last_name)  # type: ignore
+    return Client.get_client(first_name, last_name)
 
 
 def initialize_inventory(manager: InventoryManager) -> None:
