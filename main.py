@@ -13,10 +13,8 @@ def main_menu(sys: InventoryManager) -> None:
     This is the main menu, it gives the 5 options to the user.
     """
     client : Client | None = None
-    """
-    This is the main menu of the application.
-    """
     while True:
+        print('')
         print('-' * 60)
         print(' ' * 15 + "Welcome to 'Au Bon Marché'!")
         print('-' * 60)
@@ -34,9 +32,9 @@ def main_menu(sys: InventoryManager) -> None:
                 if option in range(1, 6):
                     break
                 else:
-                    print('Invalid choice, please enter a number between 1 and 5')
+                    print('\nInvalid choice, please enter a number between 1 and 5')
             except ValueError:
-                print('Invalid choice, please try again.')
+                print('\nInvalid choice, please try again.')
 
         if option == 1:
             client = get_or_create_client()
@@ -56,7 +54,7 @@ def main_menu(sys: InventoryManager) -> None:
                 h.articles_list.display_inventory()
 
         if option == 5:
-            print('Thank you for shopping! See you soon!')
+            print('\nThank you for shopping! See you soon!')
             break
 
 
@@ -66,32 +64,32 @@ def shopping(client: Client | None , sys: InventoryManager) -> None:
     Displays inventory, manages item selection, quantity validation, and payment.
     """
     if not client:
-        print('[Error] Please log in before shopping.')
+        print('\n[Error] Please log in before shopping.')
         return
 
     print('-' * 60)
-    print(f"[Shopping] Welcome {client.first_name} {client.last_name}!")
+    print(f"\n[Shopping] Welcome {client.first_name} {client.last_name}!\n")
     sys.display_inventory()
 
     while True:
-        article_name = input('Insert the article name: ').strip().capitalize()
+        article_name = input('\nInsert the article name: ').strip().capitalize()
         article = sys.get_item(article_name)
 
         if not article:
             print(f"[Error] '{article_name}' does not exist in inventory.")
             continue
 
-        quantity_input = input(f"Insert the desired quantity of {article.product} in {article.sale_type}: ").strip()
+        quantity_input = input(f"\nInsert the desired quantity of {article.product} in {article.sale_type}: ").strip()
         try:
             quantity = int(quantity_input)
             if quantity <= 0:
-                print("[Error] Quantity must be a positive number.")
+                print("\n[Error] Quantity must be a positive number.")
                 continue
             if quantity > article.stock:
-                print(f"[Error] Not enough stock for {article.product}. Available: {article.stock}")
+                print(f"\n[Error] Not enough stock for {article.product}. Available: {article.stock}")
                 continue
         except ValueError:
-            print("[Error] Invalid quantity. Please enter a number.")
+            print("\n[Error] Invalid quantity. Please enter a number.")
             continue
 
         # Check if item already in cart
@@ -109,10 +107,10 @@ def shopping(client: Client | None , sys: InventoryManager) -> None:
 
         if existing_item:
             existing_item.stock += quantity
-            print(f"[Update] Added {quantity} more of {article.product} to your cart.")
+            print(f"\n[Update] Added {quantity} more of {article.product} to your cart.")
         else:
             client.shopping_cart.add_article(article_copy, quantity)  # type: ignore
-            print(f"[Add] {article.product} has been added to your shopping cart.")
+            print(f"\n[Add] {article.product} has been added to your shopping cart.")
 
         print('-' * 60)
         client.shopping_cart.display()  # type: ignore
@@ -120,7 +118,7 @@ def shopping(client: Client | None , sys: InventoryManager) -> None:
         pay_state = input('Do you want to pay and exit? (yes/no): ').strip().lower()
         if pay_state in ['y', 'yes', 'oui', 'o']:
             client.shopping_cart.pay()  # type: ignore
-            print("[Checkout] Thank you for your purchase!")
+            print("\n[Checkout] Thank you for your purchase!")
             break
 
 
@@ -146,9 +144,9 @@ def get_or_create_client() -> Client:
 
     if not Client.exists(first_name, last_name):
         Client.clients.append(Client(first_name, last_name))
-        print(f'[Register] {first_name} {last_name} has been created')
+        print(f'\n[Register] {first_name} {last_name} has been created')
     else:
-        print(f'[Login] Welcome back {first_name} {last_name}')
+        print(f'\n[Login] Welcome back {first_name} {last_name}')
 
     return Client.get_client(first_name, last_name)  # type: ignore
 
