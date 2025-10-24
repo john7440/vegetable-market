@@ -8,7 +8,7 @@ from client import Client
 import datetime
 
 
-def main_menu(sys: InventoryManager) -> None:
+def main_menu(manager: InventoryManager) -> None:
     """
     This is the main menu, it gives the 5 options to the user.
     """
@@ -26,6 +26,7 @@ def main_menu(sys: InventoryManager) -> None:
         print('5 - Exit')
         print('-' * 60)
 
+        option: int
         while True:
             try:
                 option = int(input('Enter your choice: '))
@@ -41,10 +42,10 @@ def main_menu(sys: InventoryManager) -> None:
             print(f'{client.first_name} {client.last_name} is now active.')
 
         if option == 2:
-            shopping(client, sys)
+            shopping(client, manager)
 
         if option == 3:
-            sys.display_inventory()
+            manager.display_inventory()
 
         if option == 4:
             history_today = History.get_by_date(datetime.datetime.now().date())
@@ -152,36 +153,43 @@ def get_or_create_client() -> Client:
     return Client.get_client(first_name, last_name)  # type: ignore
 
 
+def initialize_inventory(manager: InventoryManager) -> None:
+    """
+    Populates the inventory with predefined products.
+    """
+    products = [
+        ("Clémentine", 6.0, 2.90, "kg", "fruit"),
+        ("Datte", 4.0, 7.0, "kg", "fruit"),
+        ("Grenade", 3.0, 3.5, "kg", "fruit"),
+        ("Kaki", 3.0, 4.5, "kg", "fruit"),
+        ("Kiwi", 5.0, 3.5, "kg", "fruit"),
+        ("Mandarine", 6.0, 2.8, "kg", "fruit"),
+        ("Orange", 8.0, 1.5, "kg", "fruit"),
+        ("Pamplemousse", 8.0, 2.0, "unit", "fruit"),
+        ("Poire", 5.0, 2.5, "kg", "fruit"),
+        ("Pomme", 8.0, 1.5, "kg", "fruit"),
+        ("Carotte", 7.0, 1.3, "kg", "vegetable"),
+        ("Choux de Bruxelles", 4.0, 4.0, "kg", "vegetable"),
+        ("Chou vert", 12.0, 2.5, "unit", "vegetable"),
+        ("Courge butternut", 6.0, 2.5, "unit", "vegetable"),
+        ("Endive", 5.0, 2.5, "kg", "vegetable"),
+        ("Épinard", 4.0, 2.6, "kg", "vegetable"),
+        ("Poireau", 5.0, 1.2, "kg", "vegetable"),
+        ("Potiron", 6.0, 2.5, "unit", "vegetable"),
+        ("Radis noir", 10.0, 5.0, "unit", "vegetable"),
+        ("Salsifis", 3.0, 2.5, "kg", "vegetable"),
+    ]
+
+    for name, stock, price, sale_type, category in products:
+        manager.add_item(Product(product=name, stock=stock, price=price, sale_type=sale_type, category=category)) #type: ignore
+
 def main():
     """
-    This is the main function.
+    This is the main function. Initializes inventory and launch
+    the main menu.
     """
-    # Initiation of the manager
     manager = InventoryManager()
-
-    #Add to inventory
-    manager.add_item(Product(product ='Clémentine', stock = 6.0, price = 2.90, sale_type='kg', category='fruit'))
-    manager.add_item(Product(product='Datte', stock= 4.0, price= 7.0, sale_type='kg', category='fruit'))
-    manager.add_item(Product(product='Grenade', stock= 3.0, price= 3.5, sale_type='kg', category='fruit'))
-    manager.add_item(Product(product='Kaki', stock= 3.0, price= 4.5, sale_type='kg', category='fruit'))
-    manager.add_item(Product(product='Kiwi', stock= 5.0, price= 3.5, sale_type='kg', category='fruit'))
-    manager.add_item(Product(product='Mandarine', stock= 6.0, price= 2.8, sale_type='kg', category='fruit'))
-    manager.add_item(Product(product='Orange', stock= 8.0, price= 1.5, sale_type='kg', category='fruit'))
-    manager.add_item(Product(product='Pamplemousse', stock= 8.0, price= 2.0, sale_type='unit', category='fruit'))
-    manager.add_item(Product(product='Poire', stock= 5.0, price= 2.5, sale_type='kg', category='fruit'))
-    manager.add_item(Product(product='Pomme', stock= 8.0, price= 1.5, sale_type='kg', category='fruit'))
-    manager.add_item(Product(product='Carotte', stock= 7.0, price= 1.3, sale_type='kg', category='vegetable'))
-    manager.add_item(Product(product='Choux de Bruxelles', stock= 4.0, price= 4.0, sale_type='kg', category='vegetable'))
-    manager.add_item(Product(product='Chou vert', stock= 12.0, price= 2.5, sale_type='unit', category='vegetable'))
-    manager.add_item(Product(product='Courge butternut', stock= 6.0, price= 2.5, sale_type='unit', category='vegetable'))
-    manager.add_item(Product(product='Endive', stock= 5.0, price= 2.5, sale_type='kg', category='vegetable'))
-    manager.add_item(Product(product='Épinard', stock= 4.0, price= 2.6, sale_type='kg', category='vegetable'))
-    manager.add_item(Product(product='Poireau', stock= 5.0, price= 1.2, sale_type='kg', category='vegetable'))
-    manager.add_item(Product(product='Potiron', stock= 6.0, price= 2.5, sale_type='unit', category='vegetable'))
-    manager.add_item(Product(product='Radis noir', stock= 10.0, price= 5.0, sale_type='unit', category='vegetable'))
-    manager.add_item(Product(product='Salsifis', stock= 3.0, price= 2.5, sale_type='kg', category='vegetable'))
-
-    # Main menu loop
+    initialize_inventory(manager)
     main_menu(manager)
 
 
