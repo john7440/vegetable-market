@@ -8,7 +8,7 @@ class Product:
     (vegetables and fruits), we have a definite
     stock and a price per unit or per kg.
     """
-    product: str
+    name: str
     stock: float
     price: float
     sale_type: str
@@ -40,7 +40,7 @@ class Product:
         :return: a formatted string.
         """
         unit = "unit" if self.sale_type == 'unit' else "kg"
-        return f'{self.product:<20} | {self.stock:14.2f} {unit:5} |    {self.price:.2f} €/{unit}'
+        return f'{self.name:<20} | {self.stock:14.2f} {unit:5} |    {self.price:.2f} €/{unit}'
 
 
     def total_value(self) -> float:
