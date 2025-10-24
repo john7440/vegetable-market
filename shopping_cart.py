@@ -1,8 +1,11 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 from product import Product
 from inventory_manager import InventoryManager
 
+if TYPE_CHECKING:
+    from client import Client
 
 @dataclass
 class ShoppingCart:
@@ -10,7 +13,7 @@ class ShoppingCart:
     This class represents a shopping cart associated with a client.
     It manages articles added to the cart and handles payment.
     """
-    owner: 'Client'  # type: ignore
+    owner: Client
     articles_list: 'InventoryManager' = field(default_factory=InventoryManager)
 
 
