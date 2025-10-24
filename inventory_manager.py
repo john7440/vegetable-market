@@ -1,4 +1,4 @@
-from product import Product
+from product_classe import Product
 from dataclasses import dataclass, field
 from typing import List, Optional
 
@@ -35,6 +35,6 @@ class InventoryManager:
         :return: the matching inventory item, or None if there is no item.
         """
         for item in self.items:
-            if item.product == item_name:
+            if item.name == item_name:
                 return item
         return None
