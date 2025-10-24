@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-*
 
 from history_record import History
-from product import Product
+from product_classe import Product
 from inventory_manager import InventoryManager
 from client import Client
 import datetime
@@ -85,14 +85,14 @@ def shopping(client: Client | None, manager: InventoryManager) -> None:
             print(f"[Error] '{article_name}' does not exist in inventory.")
             continue
 
-        quantity_input = input(f"\nInsert the desired quantity of {article.product} in {article.sale_type}: ").strip()
+        quantity_input = input(f"\nInsert the desired quantity of {article.name} in {article.sale_type}: ").strip()
         try:
             quantity = int(quantity_input)
             if quantity <= 0:
                 print("\n[Error] Quantity must be a positive number.")
                 continue
             if quantity > article.stock:
-                print(f"\n[Error] Not enough stock for {article.product}. Available: {article.stock}")
+                print(f"\n[Error] Not enough stock for {article.name}. Available: {article.stock}")
                 continue
         except ValueError:
             print("\n[Error] Invalid quantity. Please enter a number.")
@@ -101,13 +101,13 @@ def shopping(client: Client | None, manager: InventoryManager) -> None:
         # Check if item already in cart
         if client is not None:
             existing_item = next(
-                (item for item in client.shopping_cart.articles_list.items if item.product == article.product),
+                (item for item in client.shopping_cart.articles_list.items if item.name == article.name),
                 None)
 
             article.sell(quantity)
 
             article_copy = Product(
-                product=article.product,
+                name=article.name,
                 stock=quantity,
                 price=article.price,
                 sale_type=article.sale_type,
@@ -116,10 +116,10 @@ def shopping(client: Client | None, manager: InventoryManager) -> None:
 
             if existing_item:
                 existing_item.stock += quantity
-                print(f"\n[Update] Added {quantity} more of {article.product} to your cart.")
+                print(f"\n[Update] Added {quantity} more of {article.name} to your cart.")
             else:
                 client.shopping_cart.add_article(article_copy, quantity)
-                print(f"\n[Add] {article.product} has been added to your shopping cart.")
+                print(f"\n[Add] {article.name} has been added to your shopping cart.")
 
         print('-' * 60)
         client.shopping_cart.display()
@@ -189,7 +189,7 @@ def initialize_inventory(manager: InventoryManager) -> None:
     ]
 
     for name, stock, price, sale_type, category in products:
-        manager.add_item(Product(product=name, stock=stock, price=price, sale_type=sale_type, category=category))
+        manager.add_item(Product(name=name, stock=stock, price=price, sale_type=sale_type, category=category))
 
 def main():
     """
