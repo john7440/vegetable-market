@@ -61,7 +61,7 @@ def main_menu(manager: InventoryManager) -> None:
                 break
 
 
-def shopping(client: Client | None , sys: InventoryManager) -> None:
+def shopping(client: Client | None, manager: InventoryManager) -> None:
     """
     Handles the shopping process for a logged-in client.
     Displays inventory, manages item selection, quantity validation, and payment.
@@ -72,11 +72,11 @@ def shopping(client: Client | None , sys: InventoryManager) -> None:
 
     print('-' * 60)
     print(f"\n[Shopping] Welcome {client.first_name} {client.last_name}!\n")
-    sys.display_inventory()
+    manager.display_inventory()
 
     while True:
         article_name = input('\nInsert the article name: ').strip().capitalize()
-        article = sys.get_item(article_name)
+        article = manager.get_item(article_name)
 
         if not article:
             print(f"[Error] '{article_name}' does not exist in inventory.")
@@ -186,7 +186,7 @@ def initialize_inventory(manager: InventoryManager) -> None:
 
 def main():
     """
-    This is the main function. Initializes inventory and launch
+    This is the main function. It initializes inventory and launch
     the main menu.
     """
     manager = InventoryManager()
