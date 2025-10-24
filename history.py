@@ -36,10 +36,10 @@ class History:
         :return: A list of History entries.
         """
         from client import Client
-        list_of_article_by_date : List['History'] = list()
-        users = Client.clients
+        list_of_article_by_date : List['History'] = []
+        users: List[Client] = Client.clients
 
-        for u in users:
-            list_of_article_by_date += u.get_history_by_date(date)
+        for user in users:
+            list_of_article_by_date += user.get_history_by_date(date)
 
         return list_of_article_by_date
