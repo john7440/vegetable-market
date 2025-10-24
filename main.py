@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-*
 
-from history import History
+from history_record import History
 from product import Product
 from inventory_manager import InventoryManager
 from client import Client
@@ -47,7 +47,7 @@ def main_menu(manager: InventoryManager) -> None:
                 shopping(client, manager)
 
             case 3:
-                manager.display_inventory()
+                print(manager.display_inventory())
 
             case 4:
                 history_today = History.get_by_date(datetime.datetime.now().date())
@@ -55,7 +55,7 @@ def main_menu(manager: InventoryManager) -> None:
                 for h in history_today:
                     print('-'*60)
                     print('Client: '+ h.owner.first_name,h.owner.last_name)
-                    h.articles_list.display_inventory()
+                    print(h.articles_list.display_inventory())
 
             case 5:
                 print('\nThank you for shopping! See you soon!')
@@ -66,6 +66,8 @@ def shopping(client: Client | None, manager: InventoryManager) -> None:
     """
     Handles the shopping process for a logged-in client.
     Displays inventory, manages item selection, quantity validation, and payment.
+    :param manager:  InventoryManager.
+    :type client: Client | None.
     """
     if not client:
         print('\n[Error] Please log in before shopping.')
@@ -73,7 +75,7 @@ def shopping(client: Client | None, manager: InventoryManager) -> None:
 
     print('-' * 60)
     print(f"\n[Shopping] Welcome {client.first_name} {client.last_name}!\n")
-    manager.display_inventory()
+    print(manager.display_inventory())
 
     while True:
         article_name = input('\nInsert the article name: ').strip().capitalize()
@@ -97,24 +99,27 @@ def shopping(client: Client | None, manager: InventoryManager) -> None:
             continue
 
         # Check if item already in cart
-        existing_item = next((item for item in client.shopping_cart.articles_list.items if item.product == article.product), None)  # type: ignore
+        if client is not None:
+            existing_item = next(
+                (item for item in client.shopping_cart.articles_list.items if item.product == article.product),
+                None)
 
-        article.sell(quantity)
+            article.sell(quantity)
 
-        article_copy = Product(
-            product=article.product,
-            stock=quantity,
-            price=article.price,
-            sale_type=article.sale_type,
-            category=article.category
-        )
+            article_copy = Product(
+                product=article.product,
+                stock=quantity,
+                price=article.price,
+                sale_type=article.sale_type,
+                category=article.category
+            )
 
-        if existing_item:
-            existing_item.stock += quantity
-            print(f"\n[Update] Added {quantity} more of {article.product} to your cart.")
-        else:
-            client.shopping_cart.add_article(article_copy, quantity)  # type: ignore
-            print(f"\n[Add] {article.product} has been added to your shopping cart.")
+            if existing_item:
+                existing_item.stock += quantity
+                print(f"\n[Update] Added {quantity} more of {article.product} to your cart.")
+            else:
+                client.shopping_cart.add_article(article_copy, quantity)  # type: ignore
+                print(f"\n[Add] {article.product} has been added to your shopping cart.")
 
         print('-' * 60)
         client.shopping_cart.display()  # type: ignore

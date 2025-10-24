@@ -48,7 +48,7 @@ class ShoppingCart:
         """
         This function finalises the purchase and save the cart to the client's history.
         """
-        from history import History
+        from history_record import History
         self.owner.history_list.append(History(self.owner))
         self.articles_list.items.clear()
 

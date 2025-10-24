@@ -1,9 +1,12 @@
 from __future__ import annotations
 from copy import deepcopy
-from typing import List
+from typing import List, TYPE_CHECKING
 from dataclasses import dataclass, field
 import datetime
+from inventory_manager import InventoryManager
 
+if TYPE_CHECKING:
+    from client import Client
 
 @dataclass
 class History:
@@ -11,9 +14,6 @@ class History:
     This class represents a snapshot of a client's shopping history at a
     specific date.
     """
-    from inventory_manager import InventoryManager
-    from client import Client
-
     owner: Client
     articles_list : 'InventoryManager' = field(default_factory=InventoryManager)
     date : datetime.date = field(default_factory=datetime.date.today)
