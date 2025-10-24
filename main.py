@@ -182,7 +182,7 @@ def initialize_inventory(manager: InventoryManager) -> None:
     ]
 
     for name, stock, price, sale_type, category in products:
-        manager.add_item(Product(product=name, stock=stock, price=price, sale_type=sale_type, category=category)) #type: ignore
+        manager.add_item(Product(product=name, stock=stock, price=price, sale_type=sale_type, category=category))
 
 def main():
     """
