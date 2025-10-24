@@ -18,7 +18,7 @@ class InventoryManager:
         output += f"{'Product':<20} | {'Quantity':<20} | {'Price':<20}\n"
         output += '-' * 60 + '\n'
         for item in self.items:
-            output += item.display() + '\n'  # Assuming item.display() returns a string
+            output += item.display() + '\n'
         output += '=' * 60
         #total = sum(item.total_value() for item in self.items)
         #output += f'Total inventory value: {total:.2f} €\n'
