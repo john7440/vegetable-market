@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Literal
 
 
 @dataclass
@@ -12,8 +11,8 @@ class Product:
     product: str
     stock: float
     price: float
-    sale_type: Literal['unit', 'kg']
-    category: Literal['fruit', 'vegetable']
+    sale_type: str
+    category: str
     # ex utilisation : kiwi = Inventory('Kiwi', stock = 5.0, price = 3.5, sale_type = 'kg', category = 'fruit')
                     #  potiron = Inventory('Potiron', stock = 6.0, price = 2.5, sale_type = 'unit', category = 'vegetable')
 
