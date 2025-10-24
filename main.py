@@ -126,7 +126,7 @@ def shopping(client: Client | None, manager: InventoryManager) -> None:
 
         pay_state = input('Do you want to pay and exit? (yes/no): ').strip().lower()
         if pay_state in ['y', 'yes', 'oui', 'o']:
-            client.shopping_cart.pay()  # type: ignore
+            client.shopping_cart.pay()
             print("\n[Checkout] Thank you for your purchase!")
             break
 
