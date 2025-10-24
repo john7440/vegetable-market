@@ -19,9 +19,9 @@ class InventoryManager:
         output += '-' * 60 + '\n'
         for item in self.items:
             output += item.display() + '\n'
-        output += '=' * 60
-        #total = sum(item.total_value() for item in self.items)
-        #output += f'Total inventory value: {total:.2f} €\n'
+        output += '=' * 60 + '\n'
+        total = sum(item.total_value() for item in self.items)
+        output += f'Total value: {total:.2f} €\n'
         return output
 
     def add_item(self, item: Product) -> None:
