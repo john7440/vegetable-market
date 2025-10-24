@@ -118,11 +118,11 @@ def shopping(client: Client | None, manager: InventoryManager) -> None:
                 existing_item.stock += quantity
                 print(f"\n[Update] Added {quantity} more of {article.product} to your cart.")
             else:
-                client.shopping_cart.add_article(article_copy, quantity)  # type: ignore
+                client.shopping_cart.add_article(article_copy, quantity)
                 print(f"\n[Add] {article.product} has been added to your shopping cart.")
 
         print('-' * 60)
-        client.shopping_cart.display()  # type: ignore
+        client.shopping_cart.display()
 
         pay_state = input('Do you want to pay and exit? (yes/no): ').strip().lower()
         if pay_state in ['y', 'yes', 'oui', 'o']:
