@@ -11,12 +11,14 @@ Elle permet de **suivre les stocks**, **enregistrer les clients**, **effectuer d
 - **Panier** d’achat : Les clients peuvent sélectionner des produits et quantités à acheter.
 - **Historique des ventes** : Suivi des achats effectués par chaque client.
 - **Menu interactif** : Interface en ligne de commande pour naviguer dans les options.
+- **Résumé du jour** : Un résumé visuel des ventes de la journée.
 
 ### 🧱 Structure du projet
-- **inventory.py** : gestions des produits.
+- **product.py** : gestions des produits.
 - **inventory_manager.py** : gestion du stock global.
 - **shopping_cart.py** : panier du client.
-- **person.py** : client avec historique.
+- **client.py** : gestion de client.
+- **history.py** : gestion de l'historique des achats.
 - **main.py** : Point d'entrée de l'application.
 - **README.md** : Description de l'application.
 
