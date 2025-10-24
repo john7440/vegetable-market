@@ -37,27 +37,28 @@ def main_menu(manager: InventoryManager) -> None:
             except ValueError:
                 print('\nInvalid choice, please try again.')
 
-        if option == 1:
-            client = get_or_create_client()
-            print(f'{client.first_name} {client.last_name} is now active.')
+        match option:
+            case 1:
+                client = get_or_create_client()
+                print(f'{client.first_name} {client.last_name} is now active.')
 
-        if option == 2:
-            shopping(client, manager)
+            case 2:
+                shopping(client, manager)
 
-        if option == 3:
-            manager.display_inventory()
+            case 3:
+                manager.display_inventory()
 
-        if option == 4:
-            history_today = History.get_by_date(datetime.datetime.now().date())
-            print('-----------------------Today\'s Resume-----------------------')
-            for h in history_today:
-                print('-'*60)
-                print('Client: '+ h.owner.first_name,h.owner.last_name)
-                h.articles_list.display_inventory()
+            case 4:
+                history_today = History.get_by_date(datetime.datetime.now().date())
+                print('-----------------------Today\'s Resume-----------------------')
+                for h in history_today:
+                    print('-'*60)
+                    print('Client: '+ h.owner.first_name,h.owner.last_name)
+                    h.articles_list.display_inventory()
 
-        if option == 5:
-            print('\nThank you for shopping! See you soon!')
-            break
+            case 5:
+                print('\nThank you for shopping! See you soon!')
+                break
 
 
 def shopping(client: Client | None , sys: InventoryManager) -> None:
